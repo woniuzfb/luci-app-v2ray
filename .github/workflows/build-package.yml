@@ -92,15 +92,13 @@ jobs:
         test -d "$CCACHE_DIR_TARGET" || mkdir -p "$CCACHE_DIR_TARGET"
         test -d "$CCACHE_DIR_TOOLCHAIN" || mkdir -p "$CCACHE_DIR_TOOLCHAIN"
 
-        echo "::set-env name=CACHE_DIR_SDK::$CACHE_DIR_SDK"
-        echo "::set-env name=CACHE_DIR_DL::$CACHE_DIR_DL"
-        echo "::set-env name=CACHE_DIR_FEEDS::$CACHE_DIR_FEEDS"
-
-        echo "::set-env name=CCACHE_DIR_HOST::$CCACHE_DIR_HOST"
-        echo "::set-env name=CCACHE_DIR_TARGET::$CCACHE_DIR_TARGET"
-        echo "::set-env name=CCACHE_DIR_TOOLCHAIN::$CCACHE_DIR_TOOLCHAIN"
-
-        echo "::set-env name=SDK_HOME::$(mktemp -d)"
+        echo "CACHE_DIR_SDK=$CACHE_DIR_SDK" >> $GITHUB_ENV
+        echo "CACHE_DIR_DL=$CACHE_DIR_DL" >> $GITHUB_ENV
+        echo "CACHE_DIR_FEEDS=$CACHE_DIR_FEEDS" >> $GITHUB_ENV
+        echo "CCACHE_DIR_HOST=$CCACHE_DIR_HOST" >> $GITHUB_ENV
+        echo "CCACHE_DIR_TARGET=$CCACHE_DIR_TARGET" >> $GITHUB_ENV
+        echo "CCACHE_DIR_TOOLCHAIN=$CCACHE_DIR_TOOLCHAIN" >> $GITHUB_ENV
+        echo "SDK_HOME=$(mktemp -d)" >> $GITHUB_ENV
 
     - name: Download and Unzip SDK
       run: |

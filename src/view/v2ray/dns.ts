@@ -84,6 +84,9 @@ return L.view.extend<SectionItem[]>({
     o.datatype = "port";
     o.placeholder = "53";
 
+    o = s2.option(form.Value, "client_ip", _("Client IP"));
+    o.datatype = "ipaddr";
+
     o = s2.option(form.DynamicList, "domains", _("Domains"));
     o.modalonly = true;
 

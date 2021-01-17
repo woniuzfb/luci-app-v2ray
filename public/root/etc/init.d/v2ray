@@ -161,6 +161,7 @@ dns_server_section_validate() {
 	uci_validate_section "$NAME" "dns_server" "$1" \
 		'address:string' \
 		'port:port' \
+		'client_ip:ipaddr' \
 		'domains:list(string)' \
 		'expect_ips:list(string)'
 }
@@ -301,6 +302,7 @@ inbound_section_validate() {
 		'tag:string' \
 		'sniffing_enabled:bool:0' \
 		'sniffing_dest_override:list(or("http", "tls"))' \
+		'sniffing_domains_excluded:list(string)' \
 		'allocate_strategy:or("always", "random")' \
 		'allocate_refresh:uinteger' \
 		'allocate_concurrency:uinteger'
@@ -308,6 +310,16 @@ inbound_section_validate() {
 
 outbound_section_validate() {
 	uci_validate_section "$NAME" "outbound" "$1" \
+		's_vless_address:host' \
+		's_vless_port:port' \
+		's_vless_user_id:string' \
+		's_vless_user_encryption:or("none")' \
+		's_vless_user_level:uinteger' \
+		's_trojan_address:host' \
+		's_trojan_port:port' \
+		's_trojan_password:string' \
+		's_trojan_email:string' \
+		's_trojan_level:uinteger' \
 		'send_through:ipaddr' \
 		'protocol:string' \
 		'tag:string' \
@@ -341,7 +353,7 @@ outbound_section_validate() {
 		's_vmess_user_security:or("auto", "aes-128-gcm", "chacha20-poly1305", "none")' \
 		's_vmess_user_level:uinteger' \
 		'ss_network:or("tcp", "kcp", "ws", "http", "domainsocket", "quic")' \
-		'ss_security:or("none", "tls")' \
+		'ss_security:or("none", "tls", "xtls")' \
 		'ss_tls_server_name:host' \
 		'ss_tls_alpn:string' \
 		'ss_tls_allow_insecure:bool:0' \
@@ -350,6 +362,14 @@ outbound_section_validate() {
 		'ss_tls_cert_usage:or("encipherment", "verify", "issue")' \
 		'ss_tls_cert_fiile:string' \
 		'ss_tls_key_file:string' \
+		'ss_xtls_flow:or("xtls-rprx-direct", "xtls-rprx-direct-udp443", "xtls-rprx-splice", "xtls-rprx-splice-udp443", "xtls-rprx-origin", "xtls-rprx-origin-udp443")' \
+		'ss_xtls_server_name:host' \
+		'ss_xtls_alpn:string' \
+		'ss_xtls_allow_insecure:bool:0' \
+		'ss_xtls_disable_system_root:bool:0' \
+		'ss_xtls_cert_usage:or("encipherment", "verify", "issue")' \
+		'ss_xtls_cert_fiile:string' \
+		'ss_xtls_key_file:string' \
 		'ss_tcp_header_type:or("none", "http")' \
 		'ss_tcp_header_request_version:string' \
 		'ss_tcp_header_request_method:string' \
@@ -742,7 +762,7 @@ add_dns_settings() {
 					continue
 				fi
 
-				if [ -z "${port}${domains}${expect_ips}" ] ; then
+				if [ -z "${port}${client_ip}${domains}${expect_ips}" ] ; then
 					json_add_string "" "$address"
 				else
 					json_add_object ""
@@ -752,6 +772,10 @@ add_dns_settings() {
 						json_add_int "port" "$port"
 					else
 						json_add_int "port" "53"
+					fi
+
+					if [ -n "$client_ip" ] ; then
+						json_add_string "clientIp" "$client_ip"
 					fi
 
 					if [ -n "$domains" ] ; then
@@ -1452,13 +1476,24 @@ add_inbound_setting() {
 
 	json_add_boolean "enabled" "$sniffing_enabled"
 
+	json_add_array "destOverride"
+
 	if [ -n "$sniffing_dest_override" ] ; then
-		json_add_array "destOverride"
 		local d
 		for d in $sniffing_dest_override ; do
 			json_add_string "" "$d"
 		done
-		json_close_array # destOverride
+	fi
+
+	json_close_array # destOverride
+
+	if [ -n "$sniffing_domains_excluded" ] ; then
+		json_add_array "domainsExcluded"
+		local d
+		for d in $sniffing_domains_excluded ; do
+			json_add_string "" "$d"
+		done
+		json_close_array # domainsExcluded
 	fi
 
 	json_close_object # sniffing
@@ -1613,6 +1648,65 @@ add_outbound_setting() {
 			json_close_array # servers
 			json_close_object # settings
 			;;
+		"vless")
+			json_add_object "settings"
+
+			json_add_array "vnext"
+			json_add_object ""
+
+			json_add_string "address" "$s_vless_address"
+			append_server_address "$s_vless_address"
+
+			json_add_int "port" "$s_vless_port"
+
+			json_add_array "users"
+			json_add_object ""
+
+			json_add_string "id" "$s_vless_user_id"
+
+			test -n "$ss_xtls_flow" && \
+				json_add_string "flow" "$ss_xtls_flow"
+
+			test -n "$s_vless_user_level" && \
+				json_add_int "level" "$s_vless_user_level"
+
+			json_add_string "encryption" "$s_vless_user_encryption"
+
+			json_close_object
+			json_close_array # users
+
+			json_close_object
+
+			json_close_array # vnext
+			json_close_object # settings
+			;;
+		"trojan")
+			json_add_object "settings"
+
+			json_add_array "servers"
+			json_add_object ""
+
+			json_add_string "address" "$s_trojan_address"
+			append_server_address "$s_trojan_address"
+
+			json_add_int "port" "$s_trojan_port"
+
+			json_add_string "password" "$s_trojan_password"
+
+			test -n "$s_trojan_email" && \
+				json_add_string "email" "$s_trojan_email"
+
+			test -n "$ss_xtls_flow" && \
+				json_add_string "flow" "$ss_xtls_flow"
+
+			test -n "$s_trojan_level" && \
+				json_add_int "level" "$s_trojan_level"
+
+			json_close_object
+
+			json_close_array # servers
+			json_close_object # settings
+			;;
 		"vmess")
 			json_add_object "settings"
 
@@ -1677,6 +1771,35 @@ add_outbound_setting() {
 		json_close_array # certificates
 
 		json_close_object # tlsSettings
+	fi
+
+	if [ "x$ss_security" = "xxtls" ] ; then
+		json_add_object "xtlsSettings"
+
+		test -n "$ss_xtls_server_name" && \
+			json_add_string "serverName" "$ss_xtls_server_name"
+
+		if [ -n "$ss_xtls_alpn" ] ; then
+			json_add_array "alpn"
+			json_add_string "" "$ss_xtls_alpn"
+			json_close_array
+		fi
+
+		json_add_boolean "allowInsecure" "$ss_xtls_allow_insecure"
+		json_add_boolean "disableSystemRoot" "$ss_xtls_disable_system_root"
+
+		json_add_array "certificates"
+		if [ -n "$ss_xtls_cert_fiile" ] ; then
+			json_add_object ""
+			json_add_string "certificateFile" "$ss_xtls_cert_fiile"
+			json_add_string "keyFile" "$ss_xtls_key_file"
+			test -n "$ss_xtls_cert_usage" && \
+				json_add_string "usage" "$ss_xtls_cert_usage"
+			json_close_object
+		fi
+		json_close_array # certificates
+
+		json_close_object # xtlsSettings
 	fi
 
 	case "${ss_network:-x}" in
@@ -2205,6 +2328,53 @@ start_instance() {
 	procd_set_param stdout 1
 	procd_set_param pidfile "/var/run/${NAME}.${section}.pid"
 	procd_close_instance
+}
+
+config_cb() {
+	if [ -n "$list_name" ] 
+	then
+		uci set "$NAME"."$section_name"."$list_name"="$list_value"
+	fi
+	local type="$1"
+	local name="$2"
+	section_name="$name"
+	if [ -z "$type" ] 
+	then
+		uci commit "$NAME"
+	else
+		list_name=""
+		list_value=""
+	fi
+}
+
+list_cb() {
+	local name="$1"
+	local value="$(echo "$2" | tr -s ' ' '_')"
+
+	if [ -z "$list_name" ] 
+	then
+		if [ -n "$value" ] 
+		then
+			list_name="$name"
+			list_value="$value"
+		fi
+	else
+		if [ "$name" != "$list_name" ] 
+		then
+			uci set "$NAME"."$CONFIG_SECTION"."$list_name"="$list_value"
+			if [ -n "$value" ] 
+			then
+				list_name="$name"
+				list_value="$value"
+			else
+				list_name=""
+				list_value=""
+			fi
+		elif [ -n "$value" ] 
+		then
+			list_value="$list_value $value"
+		fi
+	fi
 }
 
 start_service() {

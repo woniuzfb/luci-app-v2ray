@@ -12,9 +12,9 @@ msgstr ""
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:271
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:286
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:335
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:400
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:412
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:461
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:483
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:495
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:544
 msgid "A list of HTTP headers, format: <code>header=value</code>. eg: %s"
 msgstr ""
 
@@ -81,9 +81,11 @@ msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/dns.js:43
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:57
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:218
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:258
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:308
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:220
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:260
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:310
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:337
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:356
 msgid "Address"
 msgstr ""
 
@@ -105,19 +107,20 @@ msgstr ""
 msgid "All connections share this level"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:387
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:392
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:395
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:389
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:394
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:397
 msgid "Allocate"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:224
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:355
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:396
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:441
 msgid "Allow insecure"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:227
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:358
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:399
 msgid "Allow insecure ciphers"
 msgstr ""
 
@@ -125,7 +128,7 @@ msgstr ""
 msgid "Allow transparent"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:319
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:321
 msgid "Alter ID"
 msgstr ""
 
@@ -141,7 +144,7 @@ msgstr ""
 msgid "Author: %s"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:327
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:329
 msgid "Auto"
 msgstr ""
 
@@ -178,12 +181,14 @@ msgid "CN Proxy"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:240
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:371
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:412
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:454
 msgid "Certificate file"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:233
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:364
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:405
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:447
 msgid "Certificate usage"
 msgstr ""
 
@@ -192,6 +197,7 @@ msgid "Client ID"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/dns.js:29
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:47
 msgid "Client IP"
 msgstr ""
 
@@ -211,8 +217,8 @@ msgstr ""
 msgid "Collecting data..."
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:395
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:508
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:397
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:591
 msgid "Concurrency"
 msgstr ""
 
@@ -221,7 +227,7 @@ msgid "Config file"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:309
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:435
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:518
 msgid "Congestion enabled"
 msgstr ""
 
@@ -303,7 +309,8 @@ msgid "Disable insecure encryption"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:230
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:361
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:402
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:444
 msgid "Disable system root"
 msgstr ""
 
@@ -319,11 +326,11 @@ msgstr ""
 msgid "Domain resolution strategy"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:225
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:227
 msgid "Domain strategy"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:47
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:49
 msgid "Domains"
 msgstr ""
 
@@ -332,7 +339,7 @@ msgid "Donate: %s"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:304
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:430
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:513
 msgid "Downlink capacity"
 msgstr ""
 
@@ -341,7 +348,8 @@ msgid "Downlink only"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:113
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:255
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:257
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:368
 msgid "Email"
 msgstr ""
 
@@ -362,11 +370,15 @@ msgstr ""
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:41
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:91
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:93
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:506
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:589
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:28
 #: package/htdocs/luci-static/resources/view/v2ray/reverse.js:17
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:26
 msgid "Enabled"
+msgstr ""
+
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:348
+msgid "Encryption"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:69
@@ -377,7 +389,11 @@ msgstr ""
 msgid "Error log file"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:49
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:387
+msgid "Exclude domains"
+msgstr ""
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:51
 msgid "Expect IPs"
 msgstr ""
 
@@ -410,8 +426,12 @@ msgid "Failed to request."
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:372
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:501
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:584
 msgid "False"
+msgstr ""
+
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:418
+msgid "Flow"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:76
@@ -462,27 +482,27 @@ msgid "Grant access to LuCI app V2ray"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:256
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:386
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:469
 msgid "HTTP request method"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:252
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:383
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:466
 msgid "HTTP request version"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:282
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:409
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:492
 msgid "HTTP response reason"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:278
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:406
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:489
 msgid "HTTP response status"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:274
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:403
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:486
 msgid "HTTP response version"
 msgstr ""
 
@@ -493,19 +513,19 @@ msgstr ""
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:246
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:322
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:359
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:377
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:448
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:485
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:460
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:531
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:568
 msgid "Header type"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:335
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:461
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:544
 msgid "Headers"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:338
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:464
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:547
 msgid "Host"
 msgstr ""
 
@@ -531,14 +551,14 @@ msgid ""
 "If transparent proxy enabled on current inbound, this option will be ignored."
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:495
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:578
 msgid ""
 "If transparent proxy is enabled, this option is ignored and will be set to "
 "255."
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:519
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:521
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:602
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:604
 msgid "Import"
 msgstr ""
 
@@ -574,12 +594,13 @@ msgid "Invalid url"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:355
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:481
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:564
 msgid "Key"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:243
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:374
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:415
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:457
 msgid "Key file"
 msgstr ""
 
@@ -624,12 +645,12 @@ msgstr ""
 msgid "LuCI support for V2Ray."
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:495
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:578
 msgid "Mark"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:289
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:415
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:498
 msgid "Maximum transmission unit (MTU)"
 msgstr ""
 
@@ -638,20 +659,20 @@ msgid "Memory percentage"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:116
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:266
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:268
 msgid "Method"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:506
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:508
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:589
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:591
 msgid "Mux"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:65
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:139
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:203
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:212
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:335
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:214
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:375
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:58
 msgid "Network"
 msgstr ""
@@ -671,13 +692,13 @@ msgstr ""
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:363
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:59
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:70
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:210
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:330
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:346
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:381
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:452
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:478
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:489
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:212
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:332
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:386
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:464
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:535
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:561
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:572
 #: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:144
 msgid "None"
 msgstr ""
@@ -693,7 +714,7 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:286
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:288
 msgid "OTA"
 msgstr ""
 
@@ -755,18 +776,19 @@ msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:128
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:150
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:251
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:278
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:300
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:253
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:280
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:302
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:364
 msgid "Password"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:332
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:341
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:345
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:458
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:467
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:471
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:541
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:550
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:554
 msgid "Path"
 msgstr ""
 
@@ -783,9 +805,11 @@ msgstr ""
 #: package/htdocs/luci-static/resources/view/v2ray/dns.js:44
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:47
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:61
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:221
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:262
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:312
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:223
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:264
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:314
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:341
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:360
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:55
 msgid "Port"
 msgstr ""
@@ -812,16 +836,16 @@ msgstr ""
 msgid "Proxy mode"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:504
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:587
 msgid "Proxy settings"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:312
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:438
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:521
 msgid "Read buffer size"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:233
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:235
 msgid "Redirect"
 msgstr ""
 
@@ -845,7 +869,7 @@ msgstr ""
 msgid "Redirect port"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:392
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:394
 msgid "Refresh"
 msgstr ""
 
@@ -866,21 +890,21 @@ msgid "Report Bugs: %s"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:271
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:400
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:483
 msgid "Request headers"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:268
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:397
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:480
 msgid "Request path"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:286
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:412
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:495
 msgid "Response headers"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:206
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:208
 msgid "Response type"
 msgstr ""
 
@@ -918,9 +942,9 @@ msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:211
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:348
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:323
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:343
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:474
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:325
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:383
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:557
 msgid "Security"
 msgstr ""
 
@@ -948,18 +972,19 @@ msgstr ""
 msgid "Send through"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:240
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:289
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:242
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:291
 msgid "Server address"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:216
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:348
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:389
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:434
 msgid "Server name"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:244
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:293
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:246
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:295
 msgid "Server port"
 msgstr ""
 
@@ -977,13 +1002,14 @@ msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:381
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:383
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:387
 msgid "Sniffing"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:369
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:374
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:495
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:498
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:578
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:581
 msgid "Sockopt"
 msgstr ""
 
@@ -1015,7 +1041,7 @@ msgstr ""
 msgid "Stats user uplink"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:387
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:389
 msgid "Strategy"
 msgstr ""
 
@@ -1030,7 +1056,7 @@ msgid "System"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:369
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:498
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:581
 msgid "TCP fast open"
 msgstr ""
 
@@ -1040,8 +1066,8 @@ msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/dns.js:28
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:380
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:503
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:504
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:586
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:587
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:80
 msgid "Tag"
 msgstr ""
@@ -1073,7 +1099,7 @@ msgid "Total: %s"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:294
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:420
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:503
 msgid "Transmission time interval (TTI)"
 msgstr ""
 
@@ -1089,7 +1115,7 @@ msgid "Transport"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:373
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:502
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:585
 msgid "True"
 msgstr ""
 
@@ -1120,7 +1146,7 @@ msgid "Update"
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:299
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:425
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:508
 msgid "Uplink capacity"
 msgstr ""
 
@@ -1136,13 +1162,14 @@ msgstr ""
 msgid "Use custom config file."
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:248
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:297
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:250
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:299
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:63
 msgid "User"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:316
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:318
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:345
 msgid "User ID"
 msgstr ""
 
@@ -1155,10 +1182,12 @@ msgstr ""
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:109
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:132
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:171
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:236
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:282
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:304
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:331
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:238
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:284
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:306
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:333
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:352
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:371
 msgid "User level"
 msgstr ""
 
@@ -1202,8 +1231,8 @@ msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:329
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:366
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:455
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:492
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:538
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:575
 msgid "Wechat Video"
 msgstr ""
 
@@ -1213,7 +1242,7 @@ msgid ""
 msgstr ""
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:317
-#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:443
+#: package/htdocs/luci-static/resources/view/v2ray/outbound.js:526
 msgid "Write buffer size"
 msgstr ""
 

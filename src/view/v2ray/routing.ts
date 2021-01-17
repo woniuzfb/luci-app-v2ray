@@ -123,7 +123,8 @@ return L.view.extend<SectionItem[][]>({
     const s3 = m.section(
       form.TypedSection,
       "routing_balancer",
-      _("Routing Balancer", _("Add routing balancers here"))
+      _("Routing Balancer"),
+      _("Add routing balancers here")
     );
     s3.anonymous = true;
     s3.addremove = true;

@@ -867,6 +867,14 @@ return L.view.extend<string[]>({
 
     o = s.taboption(
       "other",
+      form.DynamicList,
+      "sniffing_domains_excluded",
+      "%s - %s".format(_("Sniffing"), _("Exclude domains"))
+    );
+    o.modalonly = true;
+
+    o = s.taboption(
+      "other",
       form.ListValue,
       "allocate_strategy",
       "%s - %s".format(_("Allocate"), _("Strategy"))

@@ -275,6 +275,8 @@ return L.view.extend<string[]>({
     o.value("shadowsocks", "Shadowsocks");
     o.value("socks", "Socks");
     o.value("vmess", "VMess");
+    o.value("vless", "VLESS");
+    o.value("trojan", "Trojan");
 
     // Settings Blackhole
     o = s.taboption(
@@ -586,6 +588,106 @@ return L.view.extend<string[]>({
     o.depends("protocol", "vmess");
     o.datatype = "uinteger";
 
+    // Settings - VLESS
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_address",
+      "%s - %s".format("VLESS", _("Address"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.datatype = "host";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_port",
+      "%s - %s".format("VLESS", _("Port"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.datatype = "port";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_user_id",
+      "%s - %s".format("VLESS", _("User ID"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_vless_user_encryption",
+      "%s - %s".format("VLESS", _("Encryption"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.value("none");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_user_level",
+      "%s - %s".format("VLESS", _("User level"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.datatype = "uinteger";
+
+    // Settings - Trojan
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_address",
+      "%s - %s".format("Trojan", _("Address"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+    o.datatype = "host";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_port",
+      "%s - %s".format("Trojan", _("Port"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+    o.datatype = "port";
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_password",
+      "%s - %s".format("Trojan", _("Password"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+    o.password = true;
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_email",
+      "%s - %s".format("Trojan", _("Email"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_level",
+      "%s - %s".format("Trojan", _("User level"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+    o.datatype = "uinteger";
+
     /** Stream Settings **/
     o = s.taboption("stream", form.ListValue, "ss_network", _("Network"));
     o.value("");
@@ -601,6 +703,7 @@ return L.view.extend<string[]>({
     o.value("");
     o.value("none", _("None"));
     o.value("tls", "TLS");
+    o.value("xtls", "XTLS");
 
     // Stream Settings - TLS
     o = s.taboption(
@@ -679,6 +782,91 @@ return L.view.extend<string[]>({
     );
     o.modalonly = true;
     o.depends("ss_security", "tls");
+
+    // Stream Settings - XTLS
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_xtls_flow",
+      "%s - %s".format("XTLS", _("Flow"))
+    );
+    o.modalonly = true;
+    o.depends({ protocol: "vless", ss_security: "xtls" });
+    o.depends({ protocol: "trojan", ss_security: "xtls" });
+    o.value("xtls-rprx-direct");
+    o.value("xtls-rprx-direct-udp443");
+    o.value("xtls-rprx-splice");
+    o.value("xtls-rprx-splice-udp443");
+    o.value("xtls-rprx-origin");
+    o.value("xtls-rprx-origin-udp443");
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_xtls_server_name",
+      "%s - %s".format("XTLS", _("Server name"))
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "xtls");
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_xtls_alpn",
+      "%s - %s".format("XTLS", "ALPN")
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "xtls");
+    o.placeholder = "http/1.1";
+
+    o = s.taboption(
+      "stream",
+      form.Flag,
+      "ss_xtls_allow_insecure",
+      "%s - %s".format("XTLS", _("Allow insecure"))
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "xtls");
+
+    o = s.taboption(
+      "stream",
+      form.Flag,
+      "ss_xtls_disable_system_root",
+      "%s - %s".format("XTLS", _("Disable system root"))
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "xtls");
+
+    o = s.taboption(
+      "stream",
+      form.ListValue,
+      "ss_xtls_cert_usage",
+      "%s - %s".format("XTLS", _("Certificate usage"))
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "xtls");
+    o.value("");
+    o.value("encipherment");
+    o.value("verify");
+    o.value("issue");
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_xtls_cert_fiile",
+      "%s - %s".format("XTLS", _("Certificate file"))
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "xtls");
+
+    o = s.taboption(
+      "stream",
+      form.Value,
+      "ss_xtls_key_file",
+      "%s - %s".format("XTLS", _("Key file"))
+    );
+    o.modalonly = true;
+    o.depends("ss_security", "xtls");
 
     // Stream Settings - TCP
     o = s.taboption(
