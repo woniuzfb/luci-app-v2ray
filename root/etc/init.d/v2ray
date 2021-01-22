@@ -302,6 +302,7 @@ inbound_section_validate() {
 		'tag:string' \
 		'sniffing_enabled:bool:0' \
 		'sniffing_dest_override:list(or("http", "tls"))' \
+		'sniffing_domains_excluded:list(string)' \
 		'allocate_strategy:or("always", "random")' \
 		'allocate_refresh:uinteger' \
 		'allocate_concurrency:uinteger'
@@ -1475,13 +1476,24 @@ add_inbound_setting() {
 
 	json_add_boolean "enabled" "$sniffing_enabled"
 
+	json_add_array "destOverride"
+
 	if [ -n "$sniffing_dest_override" ] ; then
-		json_add_array "destOverride"
 		local d
 		for d in $sniffing_dest_override ; do
 			json_add_string "" "$d"
 		done
-		json_close_array # destOverride
+	fi
+
+	json_close_array # destOverride
+
+	if [ -n "$sniffing_domains_excluded" ] ; then
+		json_add_array "domainsExcluded"
+		local d
+		for d in $sniffing_domains_excluded ; do
+			json_add_string "" "$d"
+		done
+		json_close_array # domainsExcluded
 	fi
 
 	json_close_object # sniffing
