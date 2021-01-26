@@ -302,7 +302,9 @@ msgstr "直连列表 DNS"
 msgid ""
 "Directory where geoip.dat and geosite.dat files are, default: same directory "
 "as V2Ray file."
-msgstr "geoip.dat 和 geosite.dat 文件所在目录，默认：和 V2Ray 文件所在目录相同"
+msgstr ""
+"geoip.dat 和 geosite.dat 文件所在目录，默认：和 V2Ray 文件所在目录相同。Xray "
+"填: /usr/share/xray"
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:200
 msgid "Disable insecure encryption"
@@ -990,7 +992,7 @@ msgstr "服务器端口"
 
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:47
 msgid "Set the V2Ray executable file path."
-msgstr "设置 V2Ray 可执行文件路径。"
+msgstr "设置 V2Ray 可执行文件路径。比如 Xray : /usr/bin/xray"
 
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:95
 msgid "Settings"
@@ -1002,6 +1004,7 @@ msgstr "使用 TProxy 来设置转发规则。"
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:381
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:383
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:387
 msgid "Sniffing"
 msgstr "流量探测"
 
@@ -1047,7 +1050,7 @@ msgstr "端口分配策略"
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:36
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:186
 msgid "Stream Settings"
-msgstr ""
+msgstr "传输配置"
 
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:35
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:36
@@ -1336,7 +1339,7 @@ msgstr "wget: 不支持 SSL, 请安装 %s 或 %s。"
 #~ msgstr "数据流网络"
 
 #~ msgid "Stream settings"
-#~ msgstr "底层传输配置"
+#~ msgstr "传输配置"
 
 #~ msgid "Submit"
 #~ msgstr "提交"
@@ -1345,7 +1348,7 @@ msgstr "wget: 不支持 SSL, 请安装 %s 或 %s。"
 #~ msgstr "总共：%s，日期：%s"
 
 #~ msgid "Transport settings is required."
-#~ msgstr "底层传输配置是必填项。"
+#~ msgstr "传输配置是必填项。"
 
 #~ msgid "Unsupported Link"
 #~ msgstr "不支持的链接"
