@@ -2330,6 +2330,53 @@ start_instance() {
 	procd_close_instance
 }
 
+config_cb() {
+	if [ -n "$list_name" ] 
+	then
+		uci set "$NAME"."$section_name"."$list_name"="$list_value"
+	fi
+    local type="$1"
+    local name="$2"
+	section_name="$name"
+	if [ -z "$type" ] 
+	then
+		uci commit "$NAME"
+	else
+		list_name=""
+		list_value=""
+	fi
+}
+
+list_cb() {
+    local name="$1"
+    local value="$2"
+
+	if [ -z "$list_name" ] 
+	then
+		if [ -n "$value" ] 
+		then
+			list_name="$name"
+			list_value="$value"
+		fi
+	else
+		if [ "$name" != "$list_name" ] 
+		then
+			uci set "$NAME"."$CONFIG_SECTION"."$list_name"="$list_value"
+			if [ -n "$value" ] 
+			then
+				list_name="$name"
+				list_value="$value"
+			else
+				list_name=""
+				list_value=""
+			fi
+		elif [ -n "$value" ] 
+		then
+			list_value="$list_value $value"
+		fi
+	fi
+}
+
 start_service() {
 	clear_transparent_proxy
 
