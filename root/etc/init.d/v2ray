@@ -2349,7 +2349,7 @@ config_cb() {
 
 list_cb() {
 	local name="$1"
-	local value="$2"
+	local value="$(echo "$2" | tr -s ' ' '_')"
 
 	if [ -z "$list_name" ] 
 	then
