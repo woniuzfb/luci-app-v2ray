@@ -2335,8 +2335,8 @@ config_cb() {
 	then
 		uci set "$NAME"."$section_name"."$list_name"="$list_value"
 	fi
-    local type="$1"
-    local name="$2"
+	local type="$1"
+	local name="$2"
 	section_name="$name"
 	if [ -z "$type" ] 
 	then
@@ -2348,8 +2348,8 @@ config_cb() {
 }
 
 list_cb() {
-    local name="$1"
-    local value="$2"
+	local name="$1"
+	local value="$2"
 
 	if [ -z "$list_name" ] 
 	then
