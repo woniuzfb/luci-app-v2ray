@@ -12,11 +12,14 @@
 // "require view";
 
 // @ts-ignore
-return L.view.extend<SectionItem[]>({
+return L.view.extend<SectionItem[][]>({
   load: function () {
-    return v2ray.getSections("dns_server");
+    return Promise.all([
+      v2ray.getSections("dns_server"),
+      v2ray.getSections("fakedns_server", "ip_pool"),
+    ]);
   },
-  render: function (dnsServers = []) {
+  render: function ([dnsServers = [], fakednsServers = []] = []) {
     const m = new form.Map(
       "v2ray",
       "%s - %s".format(_("V2Ray"), _("DNS")),
@@ -33,6 +36,10 @@ return L.view.extend<SectionItem[]>({
 
     o = s1.option(form.Flag, "enabled", _("Enabled"));
     o.rmempty = false;
+
+    o = s1.option(form.Flag, "disable_cache", _("Disable cache"));
+
+    o = s1.option(form.Flag, "disable_fallback", _("Disable fallback"));
 
     o = s1.option(form.Value, "tag", _("Tag"));
 
@@ -65,6 +72,24 @@ return L.view.extend<SectionItem[]>({
       o.value(d.value, d.caption);
     }
 
+    if (fakednsServers.length) {
+      o = s1.option(
+        form.MultiValue,
+        "pools",
+        _("Fake DNS Servers"),
+        _("Select Fake DNS servers to use")
+      );
+      for (const d of fakednsServers) {
+        o.value(d.value, d.caption);
+      }
+    }
+
+    o = s1.option(form.ListValue, "query_strategy", _("Query strategy"));
+    o.value("");
+    o.value("UseIP");
+    o.value("UseIPv4");
+    o.value("UseIPv6");
+
     const s2 = m.section(
       form.GridSection,
       "dns_server",
@@ -73,7 +98,10 @@ return L.view.extend<SectionItem[]>({
     );
     s2.anonymous = true;
     s2.addremove = true;
+    s2.sortable = true;
     s2.nodescription = true;
+
+    o = s2.option(form.Flag, "skip_fallback", _("Skip fallback"));
 
     o = s2.option(form.Value, "alias", _("Alias"));
     o.rmempty = false;
@@ -92,6 +120,21 @@ return L.view.extend<SectionItem[]>({
 
     o = s2.option(form.DynamicList, "expect_ips", _("Expect IPs"));
     o.modalonly = true;
+
+    const s3 = m.section(
+      form.TypedSection,
+      "fakedns_server",
+      _("Fake DNS server"),
+      _("Add fake DNS servers here")
+    );
+    s3.anonymous = true;
+    s3.addremove = true;
+
+    o = s3.option(form.Value, "ip_pool", _("IP pool"));
+    o.rmempty = false;
+
+    o = s3.option(form.Value, "pool_size", _("Pool size"));
+    o.placeholder = "65535";
 
     return m.render();
   },

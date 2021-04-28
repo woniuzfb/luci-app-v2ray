@@ -85,7 +85,7 @@ return L.view.extend<SectionItem[][]>({
       form.Value,
       "v2ray_file",
       _("V2Ray file"),
-      _("Set the V2Ray executable file path.")
+      _("Set the V2Ray executable file path. Xray: /usr/bin/xray")
     );
     o.datatype = "file";
     o.placeholder = "/usr/bin/v2ray";
@@ -96,7 +96,7 @@ return L.view.extend<SectionItem[][]>({
       "asset_location",
       _("V2Ray asset location"),
       _(
-        "Directory where geoip.dat and geosite.dat files are, default: same directory as V2Ray file."
+        "Directory where geoip.dat and geosite.dat files are, default: same directory as V2Ray file. Xray: /usr/share/xray"
       )
     );
     o.datatype = "directory";

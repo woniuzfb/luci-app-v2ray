@@ -857,6 +857,14 @@ return L.view.extend<string[]>({
 
     o = s.taboption(
       "other",
+      form.Flag,
+      "metadata_only",
+      "%s - %s".format(_("Sniffing"), _("Metadata only"))
+    );
+    o.modalonly = true;
+
+    o = s.taboption(
+      "other",
       form.MultiValue,
       "sniffing_dest_override",
       "%s - %s".format(_("Sniffing"), _("Dest override"))
@@ -864,6 +872,8 @@ return L.view.extend<string[]>({
     o.modalonly = true;
     o.value("http");
     o.value("tls");
+    o.value("fakedns");
+    o.value("fakedns+others");
 
     o = s.taboption(
       "other",

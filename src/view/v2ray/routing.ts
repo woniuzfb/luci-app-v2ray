@@ -56,14 +56,16 @@ return L.view.extend<SectionItem[][]>({
       o.value(s.value, s.caption);
     }
 
-    o = s1.option(
-      form.MultiValue,
-      "balancers",
-      _("Balancers"),
-      _("Select routing balancers to use")
-    );
-    for (const s of routingBalancers) {
-      o.value(s.value, s.caption);
+    if (routingBalancers.length) {
+      o = s1.option(
+        form.MultiValue,
+        "balancers",
+        _("Balancers"),
+        _("Select routing balancers to use")
+      );
+      for (const s of routingBalancers) {
+        o.value(s.value, s.caption);
+      }
     }
 
     const s2 = m.section(
