@@ -8,6 +8,7 @@ START=99
 USE_PROCD=1
 
 NAME=v2ray
+XRAY=0
 CONFIG_FOLDER=/var/etc/$NAME
 
 FILE_V2RAY_DNSMASQ=/tmp/dnsmasq.d/$NAME
@@ -151,19 +152,30 @@ v2ray_section_validate() {
 dns_section_validate() {
 	uci_validate_section "$NAME" "dns" "$1" \
 		'enabled:bool:0' \
+		'disable_cache:bool:0' \
+		'disable_fallback:bool:0' \
 		'tag:string' \
 		'client_ip:ipaddr' \
 		'hosts:list(string)' \
-		'servers:list(uci("v2ray", "@dns_server"))'
+		'servers:list(uci("v2ray", "@dns_server"))' \
+		'pools:list(uci("v2ray", "@fakedns_server"))' \
+		'query_strategy:or("UseIP", "UseIPv4", "UseIPv6")'
 }
 
 dns_server_section_validate() {
 	uci_validate_section "$NAME" "dns_server" "$1" \
+		'skip_fallback:bool:0' \
 		'address:string' \
 		'port:port' \
 		'client_ip:ipaddr' \
 		'domains:list(string)' \
 		'expect_ips:list(string)'
+}
+
+fakedns_server_section_validate() {
+	uci_validate_section "$NAME" "fakedns_server" "$1" \
+		'ip_pool:string' \
+		'pool_size:uinteger'
 }
 
 routing_section_validate() {
@@ -696,7 +708,7 @@ init_rules_for_listfile() {
 		fi
 	fi
 
-  # For local devices outbound list
+  	# For local devices outbound list
 	local src_content
 	src_content="$(get_file_content "srcdirectlist")"
 
@@ -736,6 +748,16 @@ add_dns_settings() {
 		json_add_string "tag" "$tag"
 	test -n "$client_ip" && \
 		json_add_string "clientIp" "$client_ip"
+	test -n "$query_strategy" && \
+		json_add_string "queryStrategy" "$query_strategy"
+
+	if [ "x$disable_cache" = "x1" ] ; then
+		json_add_boolean "disableCache" "1"
+	fi
+
+	if [ "x$disable_fallback" = "x1" ] ; then
+		json_add_boolean "disableFallback" "1"
+	fi
 
 	if [ -n "$hosts" ] ; then
 		json_add_object "hosts"
@@ -778,6 +800,10 @@ add_dns_settings() {
 						json_add_string "clientIp" "$client_ip"
 					fi
 
+					if [ "x$skip_fallback" = "x1" ] ; then
+						json_add_boolean "skipFallback" "1"
+					fi
+
 					if [ -n "$domains" ] ; then
 						json_add_array "domains"
 
@@ -809,6 +835,45 @@ add_dns_settings() {
 	fi
 
 	json_close_object # dns
+
+	if [ -n "$pools" ] ; then
+		if [ "x$XRAY" = "x1" ] ; then
+			for p in $pools ; do
+				if fakedns_server_section_validate "$p" ; then
+					json_add_object "fakedns"
+					json_add_string "ipPool" "$ip_pool"
+
+					if [ -n "$pool_size" ] ; then
+						json_add_int "poolSize" "$pool_size"
+					else
+						json_add_int "poolSize" "65535"
+					fi
+					json_close_object # fakedns
+					break
+				fi
+			done
+			return 0
+		fi
+
+		json_add_array "fakedns"
+
+		for p in $pools ; do
+			if fakedns_server_section_validate "$p" ; then
+				json_add_object ""
+				json_add_string "ipPool" "$ip_pool"
+
+				if [ -n "$pool_size" ] ; then
+					json_add_int "poolSize" "$pool_size"
+				else
+					json_add_int "poolSize" "65535"
+				fi
+
+				json_close_object
+			fi
+		done
+
+		json_close_array # fakedns
+	fi
 }
 
 add_routing_settings() {
@@ -2205,6 +2270,10 @@ start_instance() {
 	if [ -z "$v2ray_file" ] || [ ! -s "$v2ray_file" ] ; then
 		_err "Invalid V2Ray file."
 		return 1
+	fi
+
+	if [ -n "$(echo "$v2ray_file" | grep "xray")" ] ; then
+		XRAY=1
 	fi
 
 	test -x "$v2ray_file" || chmod 755 "$v2ray_file"

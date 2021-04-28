@@ -63,9 +63,13 @@ msgstr "账户用户名"
 msgid "Add"
 msgstr "添加"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:37
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:47
 msgid "Add DNS servers here"
 msgstr "在这里添加 DNS 服务器"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:65
+msgid "Add fake DNS servers here"
+msgstr "在这里添加 虚拟 DNS 服务器"
 
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:37
 msgid "Add policy levels here"
@@ -79,7 +83,7 @@ msgstr "在这里添加路由负载均衡器"
 msgid "Add routing rules here"
 msgstr "在这里添加路由规则"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:43
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:55
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:57
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:220
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:260
@@ -93,7 +97,7 @@ msgstr "地址"
 msgid "Address of the destination server."
 msgstr "将流量转发到此地址。"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:41
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:53
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:39
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:189
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:47
@@ -197,7 +201,7 @@ msgid "Client ID"
 msgstr "用户 ID"
 
 #: package/htdocs/luci-static/resources/view/v2ray/dns.js:29
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:47
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:59
 msgid "Client IP"
 msgstr "系统 IP 地址"
 
@@ -239,7 +243,7 @@ msgstr "连接空闲时间"
 msgid "Current Config File: %s"
 msgstr "当前配置文件：%s"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:21
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:19
 #: package/luasrc/controller/v2ray.lua:21
 #: package/root/usr/share/luci/menu.d/luci-app-v2ray.json:42
 msgid "DNS"
@@ -249,7 +253,7 @@ msgstr ""
 msgid "DNS Servers"
 msgstr "DNS 服务器"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:37
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:47
 msgid "DNS server"
 msgstr "DNS 服务器"
 
@@ -283,7 +287,7 @@ msgstr "默认用户等级"
 msgid "Dest override"
 msgstr "重置指定类型"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:21
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:19
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:23
 #: package/htdocs/luci-static/resources/view/v2ray/reverse.js:13
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:21
@@ -301,10 +305,18 @@ msgstr "直连列表 DNS"
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:51
 msgid ""
 "Directory where geoip.dat and geosite.dat files are, default: same directory "
-"as V2Ray file."
+"as V2Ray file. Xray: /usr/share/xray"
 msgstr ""
 "geoip.dat 和 geosite.dat 文件所在目录，默认：和 V2Ray 文件所在目录相同。Xray "
 "填: /usr/share/xray"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:26
+msgid "Disable cache"
+msgstr "禁用缓存"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:27
+msgid "Disable fallback"
+msgstr "禁用回退"
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:200
 msgid "Disable insecure encryption"
@@ -332,7 +344,7 @@ msgstr "域名解析策略"
 msgid "Domain strategy"
 msgstr "域名策略"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:49
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:61
 msgid "Domains"
 msgstr "域名"
 
@@ -367,7 +379,7 @@ msgstr "在选中的接口上启用代理。"
 msgid "Enable transparent proxy on Dokodemo-door port."
 msgstr "在 Dokodemo-door 端口上启用透明代理。"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:26
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:24
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:381
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:41
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:91
@@ -395,7 +407,7 @@ msgstr "错误日志文件"
 msgid "Exclude domains"
 msgstr "排除域名"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:51
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:63
 msgid "Expect IPs"
 msgstr "期望 IP"
 
@@ -426,6 +438,14 @@ msgstr "无法打开文件"
 #: package/luasrc/controller/v2ray.lua:64
 msgid "Failed to request."
 msgstr "请求失败。"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:37
+msgid "Fake DNS Servers"
+msgstr "虚拟 DNS 服务器"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:65
+msgid "Fake DNS server"
+msgstr "虚拟 DNS 服务器"
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:372
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:584
@@ -539,6 +559,10 @@ msgstr "静态 IP 列表"
 #: package/htdocs/luci-static/resources/view/v2ray/routing.js:53
 msgid "IP"
 msgstr ""
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:68
+msgid "IP pool"
+msgstr "IP 池"
 
 #: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:163
 msgid ""
@@ -804,7 +828,11 @@ msgstr "策略"
 msgid "Policy Level"
 msgstr "策略等级"
 
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:44
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:70
+msgid "Pool size"
+msgstr "池大小"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:56
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:47
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:61
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:223
@@ -841,6 +869,10 @@ msgstr "代理模式"
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:587
 msgid "Proxy settings"
 msgstr "出站代理配置"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:42
+msgid "Query strategy"
+msgstr "查询类型"
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:312
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:521
@@ -954,6 +986,10 @@ msgstr "传输层加密"
 msgid "Select DNS servers to use"
 msgstr "选择使用的 DNS 服务器"
 
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:37
+msgid "Select Fake DNS servers to use"
+msgstr "选择使用的 虚拟 DNS 服务器"
+
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:30
 msgid "Select policy levels"
 msgstr "选择策略等级"
@@ -991,7 +1027,7 @@ msgid "Server port"
 msgstr "服务器端口"
 
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:47
-msgid "Set the V2Ray executable file path."
+msgid "Set the V2Ray executable file path. Xray: /usr/bin/xray"
 msgstr "设置 V2Ray 可执行文件路径。比如 Xray : /usr/bin/xray"
 
 #: package/htdocs/luci-static/resources/view/v2ray/main.js:95
@@ -1001,6 +1037,10 @@ msgstr "配置"
 #: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:157
 msgid "Setup redirect rules with TProxy."
 msgstr "使用 TProxy 来设置转发规则。"
+
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:52
+msgid "Skip fallback"
+msgstr "跳过回退"
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:381
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:383
@@ -1050,7 +1090,7 @@ msgstr "端口分配策略"
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:36
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:186
 msgid "Stream Settings"
-msgstr "传输配置"
+msgstr "传输设置"
 
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:35
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:36
@@ -1198,7 +1238,7 @@ msgid "User secret"
 msgstr "用户密钥"
 
 #: package/htdocs/luci-static/resources/view/v2ray/about.js:27
-#: package/htdocs/luci-static/resources/view/v2ray/dns.js:21
+#: package/htdocs/luci-static/resources/view/v2ray/dns.js:19
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:25
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:175
 #: package/htdocs/luci-static/resources/view/v2ray/policy.js:23
@@ -1256,105 +1296,3 @@ msgstr "可一次添加多个链接，每个链接一行。"
 msgctxt "libustream-openssl"
 msgid "wget: SSL support not available, please install %s or %s."
 msgstr "wget: 不支持 SSL, 请安装 %s 或 %s。"
-
-#~ msgid "An IP address for sending traffic out."
-#~ msgstr "用于发送数据的 IP 地址"
-
-#~ msgid "Any custom string"
-#~ msgstr "任意自定义字符串"
-
-#~ msgid "Inbound Tag"
-#~ msgstr "入站连接标识"
-
-#~ msgid "List updated."
-#~ msgstr "列表已更新。"
-
-#~ msgid "Outbound Tag"
-#~ msgstr "出站连接标识"
-
-#~ msgid "Please install %s or %s to enable list update."
-#~ msgstr "请安装 %s 或 %s 来启用列表更新功能。"
-
-#~ msgid "Allowed link format: <code>%s</code>"
-#~ msgstr "支持的链接格式：<code>%s</code>"
-
-#~ msgid "Buffer Size"
-#~ msgstr "缓存大小"
-
-#~ msgid "Can't get V2Ray version"
-#~ msgstr "无法获取 V2Ray 版本信息"
-
-#~ msgid "Close"
-#~ msgstr "关闭"
-
-#~ msgid "Connection Idle"
-#~ msgstr "连接空闲时间"
-
-#~ msgid "Edit Inbound"
-#~ msgstr "编辑入站连接"
-
-#~ msgid "Edit Outbound"
-#~ msgstr "编辑出站连接"
-
-#~ msgid "Edit Policy Level"
-#~ msgstr "编辑策略等级"
-
-#~ msgid "Edit Routing Rule"
-#~ msgstr "编辑路由规则"
-
-#~ msgid "Failed to create new section"
-#~ msgstr "创建新配置项失败"
-
-#~ msgid "Failed to save section"
-#~ msgstr "保存配置项失败"
-
-#~ msgid "Import failed"
-#~ msgstr "导入失败"
-
-#~ msgid "Import multiple vmess:// links at once. One link per line."
-#~ msgstr "可一次添加多个 vmess:// 链接，每个链接一行。"
-
-#~ msgid "Importing..."
-#~ msgstr "导入中……"
-
-#~ msgid "Invalid V2Ray file"
-#~ msgstr "V2Ray 文件有误"
-
-#~ msgid "Invalid link"
-#~ msgstr "无效链接"
-
-#~ msgid "Link imported"
-#~ msgstr "链接已导入"
-
-#~ msgid "List update failed, please try again later."
-#~ msgstr "列表更新失败，请稍后重试。"
-
-#~ msgid "List updated, reload page to see detail."
-#~ msgstr "列表已更新，刷新页面查看详情。"
-
-#~ msgid "Send Through"
-#~ msgstr "发送 IP 地址"
-
-#~ msgid "Stream Network"
-#~ msgstr "数据流网络"
-
-#~ msgid "Stream settings"
-#~ msgstr "传输配置"
-
-#~ msgid "Submit"
-#~ msgstr "提交"
-
-#~ msgid "Total: %s, Date: %s"
-#~ msgstr "总共：%s，日期：%s"
-
-#~ msgid "Transport settings is required."
-#~ msgstr "传输配置是必填项。"
-
-#~ msgid "Unsupported Link"
-#~ msgstr "不支持的链接"
-
-#~ msgid "Unsupported link version"
-#~ msgstr "不支持的链接版本"
-
-#~ msgid "Updating..."
-#~ msgstr "更新中..."
