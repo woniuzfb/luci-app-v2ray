@@ -111,9 +111,9 @@ msgstr "别名"
 msgid "All connections share this level"
 msgstr "所有连接都会使用这个用户等级"
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:389
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:394
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:397
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:393
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:398
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:401
 msgid "Allocate"
 msgstr "端口分配"
 
@@ -221,7 +221,7 @@ msgstr "用户邮箱地址"
 msgid "Collecting data..."
 msgstr "正在收集数据..."
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:397
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:401
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:591
 msgid "Concurrency"
 msgstr "随机端口数量"
@@ -283,7 +283,7 @@ msgstr "默认 Alter ID"
 msgid "Default user level"
 msgstr "默认用户等级"
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:383
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:385
 msgid "Dest override"
 msgstr "重置指定类型"
 
@@ -403,7 +403,7 @@ msgstr "错误"
 msgid "Error log file"
 msgstr "错误日志文件"
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:387
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:391
 msgid "Exclude domains"
 msgstr "排除域名"
 
@@ -684,6 +684,10 @@ msgstr "最大传输单元（MTU）"
 msgid "Memory percentage"
 msgstr "内存百分比"
 
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:383
+msgid "Metadata only"
+msgstr "仅使用元数据"
+
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:116
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:268
 msgid "Method"
@@ -903,7 +907,7 @@ msgstr "转发 UDP 流量到 V2Ray。"
 msgid "Redirect port"
 msgstr "转发端口"
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:394
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:398
 msgid "Refresh"
 msgstr "随机端口刷新间隔"
 
@@ -1044,7 +1048,8 @@ msgstr "跳过回退"
 
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:381
 #: package/htdocs/luci-static/resources/view/v2ray/inbound.js:383
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:387
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:385
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:391
 msgid "Sniffing"
 msgstr "流量探测"
 
@@ -1083,7 +1088,7 @@ msgstr "用户上行流量统计"
 msgid "Stats user uplink"
 msgstr "用户下行流量统计"
 
-#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:389
+#: package/htdocs/luci-static/resources/view/v2ray/inbound.js:393
 msgid "Strategy"
 msgstr "端口分配策略"
 

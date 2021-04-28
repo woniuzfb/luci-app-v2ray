@@ -313,7 +313,8 @@ inbound_section_validate() {
 		'ss_sockopt_tproxy:or("redirect", "tproxy", "off")' \
 		'tag:string' \
 		'sniffing_enabled:bool:0' \
-		'sniffing_dest_override:list(or("http", "tls"))' \
+		'sniffing_metadata_only:bool:0' \
+		'sniffing_dest_override:list(or("http", "tls", "fakedns", "fakedns+others"))' \
 		'sniffing_domains_excluded:list(string)' \
 		'allocate_strategy:or("always", "random")' \
 		'allocate_refresh:uinteger' \
@@ -1541,11 +1542,18 @@ add_inbound_setting() {
 
 	json_add_boolean "enabled" "$sniffing_enabled"
 
+	if [ "x$sniffing_metadata_only" = "x1" ] ; then
+		json_add_boolean "metadataOnly" "1"
+	fi
+
 	json_add_array "destOverride"
 
 	if [ -n "$sniffing_dest_override" ] ; then
 		local d
 		for d in $sniffing_dest_override ; do
+			if [ "$d" = "fakedns+others" ] && [ "x$XRAY" = "x1" ] ; then
+				continue
+			fi
 			json_add_string "" "$d"
 		done
 	fi
