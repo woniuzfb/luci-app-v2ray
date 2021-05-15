@@ -29,8 +29,13 @@ TRANSPARENT_PROXY_EXPECTED=0
 TRANSPARENT_PROXY_PORT=
 TRANSPARENT_PROXY_USE_TPROXY=
 TRANSPARENT_PROXY_ADDITION=
+TRANSPARENT_REDIRECT_MARK=255
 
 DNSMASQ_RESTART_EXPECTED=0
+
+IPTABLES_MASK=0xff
+IPTABLES_REDIRECT_MARK=0x1
+IPTABLES_BYPASS_MARK=0xff
 
 . /usr/share/libubox/jshn.sh
 
@@ -182,6 +187,7 @@ routing_section_validate() {
 	uci_validate_section "$NAME" "routing" "$1" \
 		'enabled:bool:0' \
 		'domain_strategy:or("AsIs", "IPIfNonMatch", "IPOnDemand")' \
+		'domain_matcher:or("linear", "mph")' \
 		'rules:list(uci("v2ray", "@routing_rule"))' \
 		'balancers:list(uci("v2ray", "@routing_balancer"))'
 }
@@ -190,6 +196,7 @@ routing_rule_section_validate() {
 	uci_validate_section "$NAME" "routing_rule" "$1" \
 		'type:"field"' \
 		'domain:list(string)' \
+		'domain_matcher:or("linear", "mph")' \
 		'ip:list(string)' \
 		'port:or(port, portrange)' \
 		'network:list(or("tcp", "udp"))' \
@@ -274,6 +281,13 @@ inbound_section_validate() {
 		's_vmess_default_user_level:uinteger' \
 		's_vmess_detour_to:string' \
 		's_vmess_disable_insecure_encryption:bool:0' \
+		's_vless_client_id:string' \
+		's_vless_client_email:string' \
+		's_vless_client_user_level:uinteger' \
+		's_vless_decryption:or("none")' \
+		's_trojan_password:string' \
+		's_trojan_email:string' \
+		's_trojan_level:uinteger' \
 		'ss_network:or("tcp", "kcp", "ws", "http", "domainsocket", "quic")' \
 		'ss_security:or("none", "tls")' \
 		'ss_tls_server_name:host' \
@@ -420,6 +434,7 @@ add_v2ray_redirect_rules() {
 	local ext_args="$1"
 	local lan_devices="$2"
 	local lan_ipaddrs="$3"
+	local proxy_mode="$4"
 
 	local port="$TRANSPARENT_PROXY_PORT"
 	local addition="$TRANSPARENT_PROXY_ADDITION"
@@ -431,7 +446,12 @@ add_v2ray_redirect_rules() {
 	iptables-restore --noflush <<-EOF 2>/dev/null
 		*nat
 		:V2RAY -
-		-A V2RAY -p tcp -j RETURN -m mark --mark 0xff
+		-A V2RAY -p tcp -j RETURN -m mark --mark $IPTABLES_BYPASS_MARK/$IPTABLES_MASK
+		$(
+			if [ "$proxy_mode" = "cn_direct" ]; then
+				echo "-A V2RAY -p tcp -m set --match-set $IPSET_DST_PROXY_V4 dst -j REDIRECT --to-ports $port"
+			fi
+		)
 		-A V2RAY -p tcp -j RETURN -m set --match-set $ipset_src_direct src
 		-A V2RAY -p tcp -j RETURN -m set --match-set $ipset_dst_direct dst
 		-A V2RAY -p tcp $ext_args -j REDIRECT --to-ports $port
@@ -450,27 +470,27 @@ add_v2ray_redirect_rules() {
 	EOF
 
 	if [ -n "$addition" ] ; then
-		ip rule add fwmark 1 lookup 100
+		ip rule add fwmark $IPTABLES_REDIRECT_MASK/$IPTABLES_MARK pref 100 1ookup 100
 		ip route add local 0.0.0.0/0 dev lo table 100 2>/dev/null
 
 		iptables-restore --noflush <<-EOF 2>/dev/null
 			*mangle
 			:V2RAY -
-			-A V2RAY -p udp -j RETURN -m mark --mark 0xff
+			-A V2RAY -p udp -j RETURN -m mark --mark $IPTABLES_BYPASS_MARK/$IPTABLES_MASK
 			$(
 				if [ -n "$lan_ipaddrs" ] ; then
 					local ipaddr
 					for ipaddr in $lan_ipaddrs ; do
-						echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+						echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 					done
 				fi
 			)
 			-A V2RAY -p udp -j RETURN -m set --match-set $ipset_dst_direct dst
 			$(
 				if [ "$addition" = "dns" ] ; then
-					echo "-A V2RAY -p udp --dport 53 -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+					echo "-A V2RAY -p udp --dport 53 -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				else
-					echo "-A V2RAY -p udp -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+					echo "-A V2RAY -p udp -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				fi
 
 				if [ -n "$lan_devices" ] ; then
@@ -479,21 +499,21 @@ add_v2ray_redirect_rules() {
 						echo "-A PREROUTING -p udp -i $device -j V2RAY"
 					done
 
-					echo "-A PREROUTING -p udp -j V2RAY -m mark --mark 0x1"
+					echo "-A PREROUTING -p udp -j V2RAY -m mark --mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				else
 					echo "-A PREROUTING -p udp -j V2RAY"
 				fi
 			)
 
 			:V2RAY_MARK -
-			-A V2RAY_MARK -p udp -j RETURN -m mark --mark 0xff
+			-A V2RAY_MARK -p udp -j RETURN -m mark --mark $IPTABLES_BYPASS_MARK/$IPTABLES_MASK
 			-A V2RAY_MARK -p udp -j RETURN -m set --match-set $ipset_src_direct src
 			-A V2RAY_MARK -p udp -j RETURN -m set --match-set $ipset_dst_direct dst
 			$(
 				if [ "$addition" = "dns" ] ; then
-					echo "-A V2RAY_MARK -p udp --dport 53 -j MARK --set-mark 1"
+					echo "-A V2RAY_MARK -p udp --dport 53 -j MARK --set-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				else
-					echo "-A V2RAY_MARK -p udp -j MARK --set-mark 1"
+					echo "-A V2RAY_MARK -p udp -j MARK --set-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				fi
 			)
 			-A OUTPUT -p udp -j V2RAY_MARK
@@ -506,6 +526,7 @@ add_v2ray_tproxy_rules() {
 	local ext_args="$1"
 	local lan_devices="$2"
 	local lan_ipaddrs="$3"
+	local proxy_mode="$4"
 
 	local port="$TRANSPARENT_PROXY_PORT"
 	local addition="$TRANSPARENT_PROXY_ADDITION"
@@ -516,30 +537,33 @@ add_v2ray_tproxy_rules() {
 
 	# https://www.kernel.org/doc/Documentation/networking/tproxy.txt
 
-	ip rule add fwmark 1 lookup 100
+	ip rule add fwmark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK pref 100 lookup 100
 	ip route add local 0.0.0.0/0 dev lo table 100 2>/dev/null
 
 	iptables-restore --noflush <<-EOF 2>/dev/null
 		*mangle
 		:V2RAY -
-		-A V2RAY -j RETURN -m mark --mark 0xff
+		-A V2RAY -j RETURN -m mark --mark $IPTABLES_BYPASS_MARK/$IPTABLES_MASK
 		$(
+			if [ "$proxy_mode" = "cn_direct" ]; then
+				echo "-A V2RAY -p tcp -m set --match-set $IPSET_DST_PROXY_V4 dst -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
+			fi
 			if [ -n "$addition" ] && [ -n "$lan_ipaddrs" ] ; then
 				local ipaddr
 				for ipaddr in $lan_ipaddrs ; do
-					echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+					echo "-A V2RAY -p udp --dport 53 -d $ipaddr -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				done
 			fi
 		)
 		-A V2RAY -j RETURN -m set --match-set $ipset_src_direct src
 		-A V2RAY -j RETURN -m set --match-set $ipset_dst_direct dst
-		-A V2RAY -p tcp $ext_args -j TPROXY --on-port $port --tproxy-mark 0x1/0x1
+		-A V2RAY -p tcp $ext_args -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK
 		$(
 			if [ -n "$addition" ] ; then
 				if [ "$addition" = "dns" ] ; then
-					echo "-A V2RAY -p udp --dport 53 -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+					echo "-A V2RAY -p udp --dport 53 -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				else
-					echo "-A V2RAY -p udp -j TPROXY --on-port $port --tproxy-mark 0x1/0x1"
+					echo "-A V2RAY -p udp -j TPROXY --on-port $port --tproxy-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				fi
 			fi
 
@@ -549,23 +573,23 @@ add_v2ray_tproxy_rules() {
 					echo "-A PREROUTING -i $device -j V2RAY"
 				done
 
-				echo "-A PREROUTING -j V2RAY -m mark --mark 0x1"
+				echo "-A PREROUTING -j V2RAY -m mark --mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 			else
 				echo "-A PREROUTING -j V2RAY"
 			fi
 		)
 
 		:V2RAY_MASK -
-		-A V2RAY_MASK -j RETURN -m mark --mark 0xff
+		-A V2RAY_MASK -j RETURN -m mark --mark $IPTABLES_BYPASS_MARK/$IPTABLES_MASK
 		-A V2RAY_MASK -j RETURN -m set --match-set $ipset_src_direct src
 		-A V2RAY_MASK -j RETURN -m set --match-set $ipset_dst_direct dst
-		-A V2RAY_MASK -p tcp $ext_args -j MARK --set-mark 1
+		-A V2RAY_MASK -p tcp $ext_args -j MARK --set-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK
 		$(
 			if [ -n "$addition" ] ; then
 				if [ "$addition" = "dns" ] ; then
-					echo "-A V2RAY_MASK -p udp --dport 53 -j MARK --set-mark 1"
+					echo "-A V2RAY_MASK -p udp --dport 53 -j MARK --set-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				else
-					echo "-A V2RAY_MASK -p udp -j MARK --set-mark 1"
+					echo "-A V2RAY_MASK -p udp -j MARK --set-mark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK"
 				fi
 			fi
 		)
@@ -577,7 +601,7 @@ add_v2ray_tproxy_rules() {
 clear_v2ray_rules() {
 	iptables-save --counters | grep -v "V2RAY" | iptables-restore --counters
 
-	while ip rule del fwmark 1 lookup 100 2>/dev/null ; do true ; done
+	while ip rule del fwmark $IPTABLES_REDIRECT_MARK/$IPTABLES_MASK pref 100 lookup 100 2>/dev/null ; do true ; done
 
 	ip route flush table 100
 	ip route del local 0.0.0.0/0 dev lo table 100 2>/dev/null
@@ -727,6 +751,8 @@ gracefully_restart_dnsmasq() {
 		_info "Restarting dnsmasq..."
 		/etc/init.d/dnsmasq restart >/dev/null 2>&1
 		DNSMASQ_RESTART_EXPECTED=0
+		new_conf=$(sed '/nameserver/d' /etc/resolv.conf | sed '1i nameserver 127.0.0.1')
+		echo "$new_conf" > /etc/resolv.conf
 	fi
 }
 
@@ -894,6 +920,8 @@ add_routing_settings() {
 
 	test -n "$domain_strategy" && \
 		json_add_string "domainStrategy" "$domain_strategy"
+	test -n "$domain_matcher" && \
+		json_add_string "domainMatcher" "$domain_matcher"
 
 	if [ -n "$rules" ] ; then
 		json_add_array "rules"
@@ -914,6 +942,10 @@ add_routing_settings() {
 					done
 
 					json_close_array # domain
+				fi
+
+				if [ -n "$domain_matcher" ] ; then
+					json_add_string "domainMatcher" "$domain_matcher"
 				fi
 
 				if [ -n "$ip" ] ; then
@@ -1297,6 +1329,48 @@ add_inbound_setting() {
 			fi
 
 			json_add_boolean "disableInsecureEncryption" "$s_vmess_disable_insecure_encryption"
+
+			json_close_object # settings
+			;;
+		"vless")
+			json_add_object "settings"
+
+			if [ -n "$s_vless_client_id" ] ; then
+				json_add_array "clients"
+				json_add_object ""
+
+				json_add_string "id" "$s_vless_client_id"
+
+				test -n "$s_vless_client_email" && \
+					json_add_string "email" "$s_vless_client_email"
+				test -n "$s_vless_client_user_level" && \
+					json_add_int "level" "$s_vless_client_user_level"
+
+				json_close_object
+				json_close_array # clients
+			fi
+
+			json_add_string "decryption" "$s_vless_decryption"
+
+			json_close_object # settings
+			;;
+		"trojan")
+			json_add_object "settings"
+
+			if [ -n "$s_trojan_password" ] ; then
+				json_add_array "clients"
+				json_add_object ""
+
+				json_add_string "password" "$s_trojan_password"
+
+				test -n "$s_trojan_email" && \
+					json_add_string "email" "$s_trojan_email"
+				test -n "$s_trojan_level" && \
+					json_add_int "level" "$s_trojan_level"
+
+				json_close_object
+				json_close_array # clients
+			fi
 
 			json_close_object # settings
 			;;
@@ -2054,7 +2128,7 @@ add_outbound_setting() {
 	json_add_object "sockopt"
 
 	if [ -n "$TRANSPARENT_PROXY_PORT" ] ; then
-		json_add_int "mark" "255"
+		json_add_int "mark" "$TRANSPARENT_REDIRECT_MARK"
 	else
 		test -n "$ss_sockopt_mark" && \
 			json_add_int "mark" "$ss_sockopt_mark"
@@ -2246,9 +2320,9 @@ setup_transparent_proxy() {
 
 	if [ "x$TRANSPARENT_PROXY_USE_TPROXY" = "x1" ] ; then
 		_info "Use TProxy to setup iptables"
-		add_v2ray_tproxy_rules "$ext_args" "$lan_devices" "$lan_ipaddrs"
+		add_v2ray_tproxy_rules "$ext_args" "$lan_devices" "$lan_ipaddrs" "$proxy_mode"
 	else
-		add_v2ray_redirect_rules "$ext_args" "$lan_devices" "$lan_ipaddrs"
+		add_v2ray_redirect_rules "$ext_args" "$lan_devices" "$lan_ipaddrs" "$proxy_mode"
 	fi
 }
 
