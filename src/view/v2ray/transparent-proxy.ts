@@ -224,6 +224,13 @@ return L.view.extend<[SectionItem[], SectionItem[]]>({
 
     o = s.option(
       form.Flag,
+      "redirect_lan_dns",
+      _("Redirect lan DNS"),
+      _("Redirect DNS traffic arriving at lan interface to V2Ray.")
+    );
+
+    o = s.option(
+      form.Flag,
       "redirect_udp",
       _("Redirect UDP"),
       _("Redirect UDP traffic to V2Ray.")
@@ -235,8 +242,6 @@ return L.view.extend<[SectionItem[], SectionItem[]]>({
       _("Redirect DNS"),
       _("Redirect DNS traffic to V2Ray.")
     );
-    o.depends("redirect_udp", "");
-    o.depends("redirect_udp", "0");
 
     o = s.option(
       form.ListValue,
@@ -250,6 +255,18 @@ return L.view.extend<[SectionItem[], SectionItem[]]>({
     o.value("cn_direct", _("CN Direct"));
     o.value("cn_proxy", _("CN Proxy"));
     o.value("gfwlist_proxy", _("GFWList Proxy"));
+    o.value("cn_and_gfwlist_direct", _("CN & GFWList Direct"));
+
+    o = s.option(
+      form.Value,
+      "ipset_dst_gfwlist",
+      _("GFWList ipset Name"),
+      _(
+        "If use 'CN & GFWList Direct', set the name of the ipset for gfwlist. (May be used by other mod, ie. mwan3)"
+      )
+    );
+    o.placeholder = "custom_dst_gfwlist";
+    o.depends("proxy_mode", "cn_and_gfwlist_direct");
 
     o = s.option(
       form.ListValue,

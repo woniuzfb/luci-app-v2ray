@@ -58,6 +58,8 @@ return L.view.extend<string[]>({
     o.value("shadowsocks", "Shadowsocks");
     o.value("socks", "Socks");
     o.value("vmess", "VMess");
+    o.value("vless", "VLESS");
+    o.value("trojan", "Trojan");
 
     // Settings - Dokodemo-door
     o = s.taboption(
@@ -433,6 +435,75 @@ return L.view.extend<string[]>({
     );
     o.modalonly = true;
     o.depends("protocol", "vmess");
+
+    // Settings - VLESS
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_client_id",
+      "%s - %s".format("VLESS", _("Client ID"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_client_email",
+      "%s - %s".format("VLESS", _("Client email"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_vless_client_user_level",
+      "%s - %s".format("VLESS", _("Client User level"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.datatype = "uinteger";
+
+    o = s.taboption(
+      "general",
+      form.ListValue,
+      "s_vless_decryption",
+      "%s - %s".format("VLESS", _("Decryption"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "vless");
+    o.value("none");
+
+    // Settings - Trojan
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_password",
+      "%s - %s".format("Trojan", _("Password"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+    o.password = true;
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_email",
+      "%s - %s".format("Trojan", _("Email"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+
+    o = s.taboption(
+      "general",
+      form.Value,
+      "s_trojan_level",
+      "%s - %s".format("Trojan", _("User level"))
+    );
+    o.modalonly = true;
+    o.depends("protocol", "trojan");
+    o.datatype = "uinteger";
 
     /** Stream Settings  **/
     o = s.taboption("stream", form.ListValue, "ss_network", _("Network"));

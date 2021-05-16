@@ -37,9 +37,19 @@ return L.view.extend<SectionItem[][]>({
     o = s1.option(form.Flag, "enabled", _("Enabled"));
     o.rmempty = false;
 
-    o = s1.option(form.Flag, "disable_cache", _("Disable cache"));
+    o = s1.option(
+      form.Flag,
+      "disable_cache",
+      _("Disable cache"),
+      _("Disable cache for DNS query.")
+    );
 
-    o = s1.option(form.Flag, "disable_fallback", _("Disable fallback"));
+    o = s1.option(
+      form.Flag,
+      "disable_fallback",
+      _("Disable fallback"),
+      _("Disable the fallback query when none dns server matches normally.")
+    );
 
     o = s1.option(form.Value, "tag", _("Tag"));
 
