@@ -34,7 +34,7 @@ msgstr "静态 IP 列表，格式：<code>domain|address</code>。例如：%s"
 msgid "A platform for building proxies to bypass network restrictions."
 msgstr "一个用于构建网络代理的平台"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:168
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:171
 msgid "APNIC delegated mirror"
 msgstr "APNIC 分配列表镜像"
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Buffer size"
 msgstr "缓存大小"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:173
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:176
 msgid "CHNRoute"
 msgstr ""
 
@@ -176,11 +176,15 @@ msgstr ""
 msgid "CHNRoute list updated."
 msgstr "CHNRoute 列表已更新。"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:165
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:167
+msgid "CN & GFWList Direct"
+msgstr "直连 CN & GFWList"
+
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:164
 msgid "CN Direct"
 msgstr "直连 CN"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:166
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:165
 msgid "CN Proxy"
 msgstr "代理 CN"
 
@@ -260,12 +264,12 @@ msgstr "DNS 服务器"
 msgid "DNS server"
 msgstr "DNS 服务器"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:199
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:202
 msgid ""
 "DNS used for domains in direct list, format: <code>ip#port</code>. eg: %s"
 msgstr "直连列表中域名使用的 DNS，格式：<code>ip#port</code>。例如：%s"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:198
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:201
 msgid ""
 "DNS used for domains in proxy list, format: <code>ip#port</code>. eg: %s"
 msgstr "代理列表中域名使用的 DNS，格式：<code>ip#port</code>。例如：%s"
@@ -278,7 +282,7 @@ msgstr "调试"
 msgid "Decryption"
 msgstr "解密"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:164
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:163
 msgid "Default"
 msgstr "默认"
 
@@ -305,7 +309,7 @@ msgstr "查看详情：%s"
 msgid "Detour to"
 msgstr "转发到"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:199
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:202
 msgid "Direct list DNS"
 msgstr "直连列表 DNS"
 
@@ -432,11 +436,11 @@ msgstr "排除域名"
 msgid "Expect IPs"
 msgstr "期望 IP"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:193
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:196
 msgid "Extra direct list"
 msgstr "额外的直连列表"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:188
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:191
 msgid "Extra proxy list"
 msgstr "额外的代理列表"
 
@@ -485,15 +489,19 @@ msgstr "自动转发"
 msgid "For more information, please visit: %s"
 msgstr "获取更多信息，请访问：%s"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:183
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:186
 msgid "GFWList"
 msgstr ""
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:167
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:166
 msgid "GFWList Proxy"
 msgstr "代理 GFWList"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:178
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:168
+msgid "GFWList ipset Name"
+msgstr "GFWList ipset 名称"
+
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:181
 msgid "GFWList mirror"
 msgstr "GFWList 镜像"
 
@@ -585,7 +593,7 @@ msgstr ""
 msgid "IP pool"
 msgstr "IP 池"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:163
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:162
 msgid ""
 "If enabled, iptables rules will be added to pre-filter traffic and then sent "
 "to V2Ray."
@@ -603,6 +611,12 @@ msgid ""
 "If transparent proxy is enabled, this option is ignored and will be set to "
 "255."
 msgstr "如果启用了透明代理，此选项会被忽略，并自动设置为255。"
+
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:168
+msgid ""
+"If use 'CN & GFWList Direct', set the name of the ipset for gfwlist. (May be "
+"used by other mod, ie. mwan3)"
+msgstr "如果使用直连 CN & GFWList, 设置用于 gfwlist ipset 的名称"
 
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:602
 #: package/htdocs/luci-static/resources/view/v2ray/outbound.js:604
@@ -680,7 +694,7 @@ msgstr "监听地址"
 msgid "Listtype is required"
 msgstr "请设置列表类型。"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:200
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:203
 msgid "Local devices direct outbound list"
 msgstr "本地设备直接连出列表"
 
@@ -777,12 +791,12 @@ msgstr "关闭"
 msgid "One Time Auth (OTA)"
 msgstr "一次性认证（OTA）"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:188
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:193
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:191
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:196
 msgid "One address per line. Allow types: DOMAIN, IP, CIDR. eg: %s, %s, %s"
 msgstr "每行一个地址，支持的类型：域名、IP、CIDR。例如：%s、%s、%s"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:200
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:203
 msgid "One address per line. Allow types: IP, CIDR. eg: %s, %s"
 msgstr "每行一个地址，支持的类型：IP、CIDR。例如：%s、%s"
 
@@ -884,11 +898,11 @@ msgstr ""
 msgid "Protocol"
 msgstr "协议"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:198
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:201
 msgid "Proxy list DNS"
 msgstr "代理列表 DNS"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:163
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:162
 msgid "Proxy mode"
 msgstr "代理模式"
 
@@ -909,21 +923,29 @@ msgstr "读取缓冲区大小"
 msgid "Redirect"
 msgstr "发送到指定地址"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:160
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:161
 msgid "Redirect DNS"
 msgstr "转发 DNS"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:160
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:159
+msgid "Redirect DNS traffic arriving at lan interface to V2Ray."
+msgstr "转发 LAN 接口 DNS 流量到 V2Ray。"
+
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:161
 msgid "Redirect DNS traffic to V2Ray."
 msgstr "转发 DNS 流量到 V2Ray。"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:159
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:160
 msgid "Redirect UDP"
 msgstr "转发 UDP"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:159
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:160
 msgid "Redirect UDP traffic to V2Ray."
 msgstr "转发 UDP 流量到 V2Ray。"
+
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:159
+msgid "Redirect lan DNS"
+msgstr "转发 LAN 接口 DNS"
 
 #: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:143
 msgid "Redirect port"
@@ -1209,8 +1231,8 @@ msgstr "无法预料的错误"
 msgid "Unknown"
 msgstr "未知"
 
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:175
-#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:185
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:178
+#: package/htdocs/luci-static/resources/view/v2ray/transparent-proxy.js:188
 msgid "Update"
 msgstr "更新"
 
